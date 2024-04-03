@@ -17,5 +17,4 @@ Navbar.propTypes = {
     icon: PropTypes.string.isRequired
 }
 
-
 export default Navbar;
