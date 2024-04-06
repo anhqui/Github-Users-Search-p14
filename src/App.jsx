@@ -24,7 +24,7 @@ function App() {
     <div className='App'>
       <Navbar />
       <div className="container">
-        <Users users={users} />
+        <Users users={users} loading={loading} />
       </div>
     </div>
   )
