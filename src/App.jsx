@@ -11,8 +11,7 @@ function App() {
 
   useEffect(() => {
     const getUsers = async () => {
-      const res = await axios.get('https://api.github.com/users')
-      // console.log(res.data);
+      const res = await axios.get(`https://api.github.com/users?client_id=${import.meta.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${import.meta.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
       setUsers(res.data);
       setLoading(false)
     }
