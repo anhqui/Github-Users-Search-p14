@@ -3,6 +3,7 @@ import Navbar from './components/layout/Navbar'
 import Users from './users/Users'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Search from './users/Search'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
     <div className='App'>
       <Navbar />
       <div className="container">
+        <Search />
         <Users users={users} loading={loading} />
       </div>
     </div>
