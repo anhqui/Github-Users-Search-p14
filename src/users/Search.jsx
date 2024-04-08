@@ -1,13 +1,13 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const Search = () => {
+const Search = ({ searchUsers }) => {
     const [text, setText] = useState('')
 
     const onSubmit = (e) => {
         e.preventDefault()
-        console.log(text);
-
-
+        searchUsers(text);
+        setText("")
     }
     const onChange = (e) => {
         setText(e.target.value)
@@ -30,5 +30,9 @@ const Search = () => {
         </form>
     </div>;
 };
+
+Search.propTypes = {
+    searchUsers: PropTypes.func.isRequired
+}
 
 export default Search;
