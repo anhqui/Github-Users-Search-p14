@@ -4,11 +4,15 @@ import Users from './users/Users'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Search from './users/Search'
+import Alert from './components/layout/Alert'
+
 
 function App() {
 
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(false)
+  const [alert, setAlert] = useState(null)
+
 
   // Search Github users
   const searchUsers = async (text) => {
@@ -23,12 +27,25 @@ function App() {
     setUsers([])
     setLoading(false)
   }
+  // Show Alert
+  const showAlert = (msg, type) => {
+    setAlert({ msg, type })
+    setTimeout(() => {
+      setAlert(null)
+    }, 5000)
+  }
 
   return (
     <div className='App'>
       <Navbar />
       <div className="container">
-        <Search searchUsers={searchUsers} clearUsers={clearUsers} showClear={users.length > 0 ? true : false} />
+        <Alert alert={alert} />
+        <Search
+          searchUsers={searchUsers}
+          clearUsers={clearUsers}
+          showClear={users.length > 0 ? true : false}
+          showAlert={showAlert}
+        />
         <Users users={users} loading={loading} />
       </div>
     </div>
