@@ -12,9 +12,8 @@ const Search = ({ searchUsers, clearUsers, showClear, showAlert }) => {
             searchUsers(text);
             setText("")
         }
-
-
     }
+
     const onChange = (e) => {
         setText(e.target.value)
     }

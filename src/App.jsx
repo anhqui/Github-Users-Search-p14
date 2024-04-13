@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Search from './users/Search'
 import Alert from './components/layout/Alert'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import About from './components/pages/About'
 
 
 function App() {
@@ -36,19 +38,30 @@ function App() {
   }
 
   return (
-    <div className='App'>
-      <Navbar />
-      <div className="container">
-        <Alert alert={alert} />
-        <Search
-          searchUsers={searchUsers}
-          clearUsers={clearUsers}
-          showClear={users.length > 0 ? true : false}
-          showAlert={showAlert}
-        />
-        <Users users={users} loading={loading} />
+    <Router>
+      <div className='App'>
+        <Navbar />
+        <div className="container">
+          <Alert alert={alert} />
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Search
+                  searchUsers={searchUsers}
+                  clearUsers={clearUsers}
+                  showClear={users.length > 0 ? true : false}
+                  showAlert={showAlert}
+                />
+                <Users users={users} loading={loading} />
+              </>
+            } />
+            <Route path="/about" element={<About />} />
+          </Routes>
+
+        </div>
       </div>
-    </div>
+    </Router>
+
   )
 }
 
