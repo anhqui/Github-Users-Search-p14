@@ -7,11 +7,13 @@ import Search from './users/Search'
 import Alert from './components/layout/Alert'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import About from './components/pages/About'
+import User from './users/User'
 
 
 function App() {
 
   const [users, setUsers] = useState([])
+  const [user, setUser] = useState({})
   const [loading, setLoading] = useState(false)
   const [alert, setAlert] = useState(null)
 
@@ -24,6 +26,16 @@ function App() {
     setLoading(false)
   }
 
+  // Get single Github user
+  const getUser = async (username) => {
+    setLoading(true)
+    const res = await axios.get(`https://api.github.com/users/${username}?client_id=${import.meta.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${import.meta.env.REACT_APP_GITHUB_CLIENT_SECRET}`)
+    console.log(res.data);
+
+    setUser(res.data);
+    setLoading(false)
+
+  }
   // Clear users from state
   const clearUsers = () => {
     setUsers([])
@@ -56,6 +68,8 @@ function App() {
               </>
             } />
             <Route path="/about" element={<About />} />
+            <Route path="/user/:id" element={<User user={user} getUser={getUser} loading={loading} />} />
+
           </Routes>
 
         </div>
