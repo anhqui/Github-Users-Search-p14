@@ -2,9 +2,10 @@ import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom'
 import Spinner from '../components/layout/Spinner';
 import PropTypes from "prop-types";
+import Repos from '../components/repos/Repos';
 
 
-const User = ({ user, getUser, loading }) => {
+const User = ({ user, getUser, loading, repos, getUserRepos }) => {
     const { id } = useParams()
     const {
         name,
@@ -24,6 +25,7 @@ const User = ({ user, getUser, loading }) => {
 
     useEffect(() => {
         getUser(id)
+        getUserRepos(id)
     }, [])
 
 
@@ -59,17 +61,21 @@ const User = ({ user, getUser, loading }) => {
             <div className="badge badge-primary">Followers: {followers}</div>
             <div className="badge badge-success">Following: {following}</div>
             <div className="badge badge-danger">Public repos: {public_repos}</div>
-            <div className="badge badge-dark">Public Grist: {public_gists}</div>
+            <div className="badge badge-dark">Public Gists: {public_gists}</div>
         </div>
-    </>;
+        <Repos repos={repos} />
 
-    User.propTypes = {
-        loading: PropTypes.bool.isRequired,
-        user: PropTypes.object.isRequired,
-        getUser: PropTypes.func.isRequired
-    }
+    </>;
 
 
 };
+
+User.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    user: PropTypes.object.isRequired,
+    repos: PropTypes.array.isRequired,
+    getUser: PropTypes.func.isRequired,
+    getUserRepos: PropTypes.func.isRequired,
+}
 
 export default User;
