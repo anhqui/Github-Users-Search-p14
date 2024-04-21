@@ -8,6 +8,7 @@ import Alert from './components/layout/Alert'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import About from './components/pages/About'
 import User from './users/User'
+import GithubState from './components/context/github/GithubState'
 
 
 function App() {
@@ -59,32 +60,33 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className='App'>
-        <Navbar />
-        <div className="container">
-          <Alert alert={alert} />
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Search
-                  searchUsers={searchUsers}
-                  clearUsers={clearUsers}
-                  showClear={users.length > 0 ? true : false}
-                  showAlert={showAlert}
-                />
-                <Users users={users} loading={loading} />
-              </>
-            } />
-            <Route path="/about" element={<About />} />
-            <Route path="/user/:id" element={<User user={user} getUser={getUser} loading={loading} repos={repos} getUserRepos={getUserRepos} />} />
+    <GithubState>
+      <Router>
+        <div className='App'>
+          <Navbar />
+          <div className="container">
+            <Alert alert={alert} />
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <Search
+                    searchUsers={searchUsers}
+                    clearUsers={clearUsers}
+                    showClear={users.length > 0 ? true : false}
+                    showAlert={showAlert}
+                  />
+                  <Users users={users} loading={loading} />
+                </>
+              } />
+              <Route path="/about" element={<About />} />
+              <Route path="/user/:id" element={<User user={user} getUser={getUser} loading={loading} repos={repos} getUserRepos={getUserRepos} />} />
 
-          </Routes>
+            </Routes>
 
+          </div>
         </div>
-      </div>
-    </Router>
-
+      </Router>
+    </GithubState>
   )
 }
 
